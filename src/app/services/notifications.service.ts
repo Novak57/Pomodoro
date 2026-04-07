@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import {
   DestroyRef,
   Injectable,
@@ -25,6 +26,7 @@ function resolveAudioContextConstructor(): typeof AudioContext {
 @Injectable()
 export class NotificationsService {
   private readonly destroyRef = inject(DestroyRef);
+  private readonly document = inject(DOCUMENT);
   private chimeContext: AudioContext | null = null;
 
   readonly notificationsWanted = signal(false);
@@ -109,10 +111,11 @@ export class NotificationsService {
       return;
     }
     const copy = this.notificationCopy(completed);
+    const iconUrl = new URL('favicon.svg', this.document.baseURI).href;
     try {
       new Notification(copy.title, {
         body: copy.body,
-        icon: '/favicon.ico',
+        icon: iconUrl,
         silent: this.chimeOnPhaseEnd(),
       });
     } catch {
