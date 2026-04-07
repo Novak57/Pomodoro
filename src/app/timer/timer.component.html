@@ -1,0 +1,52 @@
+<div
+  class="timer-card"
+  [attr.data-phase]="timer.phase()"
+  [class.running]="timer.isRunning()"
+>
+  <div class="timer-card-top">
+    <p class="phase-badge">{{ timer.phaseLabel() }}</p>
+    <button
+      type="button"
+      class="timer-settings-btn"
+      (click)="timer.openSettings()"
+      aria-label="Open settings"
+      title="Settings"
+    >
+      <span class="material-symbols-outlined ms-icon" aria-hidden="true">settings</span>
+    </button>
+  </div>
+  <div class="ring-wrap" aria-hidden="true">
+    <svg class="ring" viewBox="0 0 120 120">
+      <circle class="ring-bg" cx="60" cy="60" r="54" />
+      <circle
+        class="ring-fill"
+        cx="60"
+        cy="60"
+        r="54"
+        [attr.stroke-dasharray]="ringCircumference"
+        [style.stroke-dashoffset]="
+          ringCircumference - ringCircumference * timer.progress()
+        "
+      />
+    </svg>
+    <div class="time-display">{{ timer.formattedTime() }}</div>
+  </div>
+
+  <div class="controls" role="group" aria-label="Timer controls">
+    @if (!timer.isRunning()) {
+      <button type="button" class="btn primary" (click)="timer.start()">
+        Start
+      </button>
+    } @else {
+      <button type="button" class="btn primary" (click)="timer.pause()">
+        Pause
+      </button>
+    }
+    <button type="button" class="btn ghost" (click)="timer.resetPhase()">
+      Reset
+    </button>
+    <button type="button" class="btn ghost" (click)="timer.skipPhase()">
+      Skip
+    </button>
+  </div>
+</div>

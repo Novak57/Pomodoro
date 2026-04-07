@@ -1,0 +1,5 @@
+@import '../../shared/pomodoro-settings-blocks.css';
+
+:host {
+  display: block;
+}

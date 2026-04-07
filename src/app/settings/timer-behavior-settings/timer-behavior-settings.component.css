@@ -1,0 +1,12 @@
+@import '../../shared/pomodoro-settings-blocks.css';
+
+:host {
+  display: block;
+}
+
+.behavior-lead {
+  margin: 0 0 0.85rem;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--muted);
+}

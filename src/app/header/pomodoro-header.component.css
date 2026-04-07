@@ -1,0 +1,38 @@
+:host {
+  display: block;
+}
+
+.header {
+  margin-bottom: 1.5rem;
+}
+
+.header-inner {
+  text-align: center;
+  min-width: 0;
+}
+
+.logo {
+  font-size: clamp(1.75rem, 5vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  margin: 0 0 0.35rem;
+  background: linear-gradient(120deg, #fff 0%, #d4c8e8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.session-meta {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.session-meta.subtle {
+  text-transform: capitalize;
+}
+
+.session-num {
+  color: var(--text);
+  font-weight: 600;
+}

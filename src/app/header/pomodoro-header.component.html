@@ -1,0 +1,12 @@
+<header class="header">
+  <div class="header-inner">
+    <h1 class="logo">Pomodoro</h1>
+    @if (timer.phase() === 'work') {
+      <p class="session-meta">
+        Session <span class="session-num">{{ timer.sessionNumber() }}</span> of 4
+      </p>
+    } @else {
+      <p class="session-meta subtle">{{ timer.phaseLabel() }}</p>
+    }
+  </div>
+</header>

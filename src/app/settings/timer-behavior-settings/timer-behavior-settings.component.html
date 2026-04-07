@@ -1,0 +1,22 @@
+<section class="settings timer-behavior" aria-label="Timer behavior">
+  <h3 class="settings-title">Timer</h3>
+  <p class="behavior-lead">
+    Start the next phase automatically when the current one ends (you can still pause or skip).
+  </p>
+  <label class="check">
+    <input
+      type="checkbox"
+      [checked]="timer.autoStartBreaks()"
+      (change)="timer.onAutoStartBreaksChange($event)"
+    />
+    <span>Auto-start breaks after a focus block ends</span>
+  </label>
+  <label class="check">
+    <input
+      type="checkbox"
+      [checked]="timer.autoStartFocus()"
+      (change)="timer.onAutoStartFocusChange($event)"
+    />
+    <span>Auto-start focus after a break ends</span>
+  </label>
+</section>

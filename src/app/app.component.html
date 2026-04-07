@@ -1,0 +1,9 @@
+<div class="app">
+  <app-pomodoro-header />
+  <main class="main">
+    <app-timer />
+  </main>
+  @if (timer.settingsOpen()) {
+    <app-settings-drawer />
+  }
+</div>

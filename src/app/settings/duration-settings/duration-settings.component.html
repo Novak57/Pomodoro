@@ -1,0 +1,41 @@
+<section class="settings" aria-label="Durations">
+  <h3 class="settings-title">Minutes</h3>
+  <div class="settings-grid">
+    <label class="field">
+      <span class="field-label">Focus</span>
+      <input
+        type="number"
+        min="1"
+        max="120"
+        [value]="timer.workMinutes()"
+        [readOnly]="timer.isRunning()"
+        (input)="timer.onWorkMinutesInput($event)"
+      />
+    </label>
+    <label class="field">
+      <span class="field-label">Short break</span>
+      <input
+        type="number"
+        min="1"
+        max="60"
+        [value]="timer.shortBreakMinutes()"
+        [readOnly]="timer.isRunning()"
+        (input)="timer.onShortBreakInput($event)"
+      />
+    </label>
+    <label class="field">
+      <span class="field-label">Long break</span>
+      <input
+        type="number"
+        min="1"
+        max="60"
+        [value]="timer.longBreakMinutes()"
+        [readOnly]="timer.isRunning()"
+        (input)="timer.onLongBreakInput($event)"
+      />
+    </label>
+  </div>
+  @if (timer.isRunning()) {
+    <p class="settings-hint">Pause the timer to change durations.</p>
+  }
+</section>
