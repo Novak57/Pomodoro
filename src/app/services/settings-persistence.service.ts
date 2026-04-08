@@ -5,7 +5,6 @@ import { TimerService } from './timer.service';
 
 const STORAGE_KEY = 'pomodoro.settings.v1';
 
-/** Shape stored in localStorage — versioned for safe migrations later. */
 export interface PersistedAppSettingsV1 {
   v: 1;
   workMinutes: number;
@@ -52,7 +51,6 @@ export class SettingsPersistenceService {
     });
   }
 
-  /** Explicit save + dismiss — settings already sync while you edit; this confirms persistence and closes. */
   saveAndClose(): void {
     this.writeStored();
     this.timer.closeSettings();
@@ -96,7 +94,6 @@ export class SettingsPersistenceService {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
     } catch {
-      /* Quota, private mode, disabled storage */
     }
   }
 }

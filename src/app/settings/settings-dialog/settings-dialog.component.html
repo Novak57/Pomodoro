@@ -1,0 +1,29 @@
+<div class="settings-modal-top">
+  <h2 class="settings-modal-title" mat-dialog-title id="settings-modal-title">Settings</h2>
+  <button
+    mat-icon-button
+    mat-dialog-close
+    type="button"
+    class="modal-close"
+    aria-label="Close settings"
+  >
+    <span class="material-symbols-outlined ms-icon" aria-hidden="true">close</span>
+  </button>
+</div>
+
+<mat-dialog-content class="settings-modal-body">
+  <app-duration-settings />
+  <app-timer-behavior-settings />
+  <app-alert-settings />
+</mat-dialog-content>
+
+<mat-dialog-actions class="settings-modal-footer" align="end">
+  <button
+    mat-flat-button
+    class="pomodoro-save-close"
+    type="button"
+    (click)="persistence.saveAndClose()"
+  >
+    Save &amp; close
+  </button>
+</mat-dialog-actions>

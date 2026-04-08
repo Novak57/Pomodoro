@@ -1,10 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { vi } from 'vitest';
 import { AppComponent } from './app.component';
 import { NotificationsService } from './services/notifications.service';
 import { SettingsPersistenceService } from './services/settings-persistence.service';
+import { TasksService } from './services/tasks.service';
 import { TimerService } from './services/timer.service';
 
 describe('AppComponent', () => {
@@ -24,10 +27,12 @@ describe('AppComponent', () => {
     } as unknown as Title;
 
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [AppComponent, MatDialogModule],
       providers: [
+        provideAnimations(),
         NotificationsService,
         TimerService,
+        TasksService,
         SettingsPersistenceService,
         { provide: Title, useValue: titleStub },
       ],

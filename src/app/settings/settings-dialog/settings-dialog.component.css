@@ -1,0 +1,76 @@
+:host {
+  display: block;
+}
+
+.settings-modal-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in oklab, var(--surface) 88%, #000);
+  border-radius: calc(var(--radius) + 4px) calc(var(--radius) + 4px) 0 0;
+}
+
+.settings-modal-title {
+  margin: 0;
+  padding: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.modal-close {
+  color: var(--muted);
+  --mat-icon-button-icon-color: var(--muted);
+}
+
+.modal-close:hover,
+.modal-close:focus-visible {
+  color: var(--text);
+  --mat-icon-button-icon-color: var(--text);
+}
+
+.settings-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 1.25rem 0;
+  margin: 0;
+  max-height: min(60dvh, 520px);
+  scrollbar-color: rgba(154, 143, 176, 0.4) rgba(0, 0, 0, 0.2);
+  scrollbar-width: thin;
+}
+
+.settings-modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.settings-modal-body::-webkit-scrollbar-thumb {
+  background: rgba(154, 143, 176, 0.35);
+  border-radius: 4px;
+}
+
+.settings-modal-body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+.settings-modal-footer {
+  padding: 1rem 1.25rem 1.25rem;
+  margin: 0;
+  border-top: 1px solid var(--border);
+  background: color-mix(in oklab, var(--surface) 92%, #000);
+  border-radius: 0 0 calc(var(--radius) + 4px) calc(var(--radius) + 4px);
+}
+
+.pomodoro-save-close {
+  width: 100%;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.65rem 1.1rem;
+  border-radius: 999px;
+}

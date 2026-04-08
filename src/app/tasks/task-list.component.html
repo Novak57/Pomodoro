@@ -1,0 +1,71 @@
+<section class="tasks-card" aria-labelledby="tasks-heading">
+  <h2 class="tasks-heading" id="tasks-heading">Tasks</h2>
+  <p class="tasks-hint">Drag the handle to reorder. The top open task is your current focus.</p>
+  <form class="tasks-add" (submit)="onAddTask($event, taskInput)">
+    <input
+      #taskInput
+      type="text"
+      class="tasks-input"
+      placeholder="What are you working on?"
+      maxlength="200"
+      autocomplete="off"
+      aria-label="New task"
+    />
+    <button
+      mat-stroked-button
+      type="submit"
+      class="pomodoro-mat-pill tasks-add-btn-mat"
+    >
+      Add
+    </button>
+  </form>
+  @if (tasks.tasks().length === 0) {
+    <p class="tasks-empty">No tasks yet — add one for this focus block.</p>
+  } @else {
+    <ul
+      class="tasks-list"
+      role="list"
+      cdkDropList
+      (cdkDropListDropped)="onListDrop($event)"
+    >
+      @for (t of tasks.tasks(); track t.id) {
+        <li
+          class="task-row"
+          [class.task-done]="t.done"
+          cdkDrag
+          cdkDragPreviewClass="task-row-drag-preview"
+          [cdkDragDisabled]="t.done"
+        >
+          <button
+            mat-icon-button
+            type="button"
+            class="task-drag-handle"
+            cdkDragHandle
+            [disabled]="t.done"
+            [attr.aria-hidden]="t.done"
+            [attr.tabindex]="t.done ? -1 : 0"
+            [attr.aria-label]="t.done ? null : 'Drag to reorder'"
+          >
+            <span class="material-symbols-outlined ms-icon" aria-hidden="true">drag_indicator</span>
+          </button>
+          <mat-checkbox
+            class="task-check"
+            [checked]="t.done"
+            (change)="tasks.setTaskDone(t.id, $event.checked)"
+          >
+            <span class="task-title">{{ t.title }}</span>
+          </mat-checkbox>
+          <button
+            mat-icon-button
+            type="button"
+            class="task-remove"
+            (click)="tasks.removeTask(t.id)"
+            aria-label="Remove task"
+          >
+            <span class="material-symbols-outlined ms-icon" aria-hidden="true">close</span>
+          </button>
+        </li>
+      }
+    </ul>
+  }
+</section>

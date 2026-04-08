@@ -1,39 +1,45 @@
 <section class="settings" aria-label="Durations">
   <h3 class="settings-title">Minutes</h3>
   <div class="settings-grid">
-    <label class="field">
-      <span class="field-label">Focus</span>
+    <mat-form-field appearance="outline" subscriptSizing="dynamic">
+      <mat-label>Focus</mat-label>
       <input
+        matInput
         type="number"
         min="1"
         max="120"
+        inputmode="numeric"
         [value]="timer.workMinutes()"
         [readOnly]="timer.isRunning()"
         (input)="timer.onWorkMinutesInput($event)"
       />
-    </label>
-    <label class="field">
-      <span class="field-label">Short break</span>
+    </mat-form-field>
+    <mat-form-field appearance="outline" subscriptSizing="dynamic">
+      <mat-label>Short break</mat-label>
       <input
+        matInput
         type="number"
         min="1"
         max="60"
+        inputmode="numeric"
         [value]="timer.shortBreakMinutes()"
         [readOnly]="timer.isRunning()"
         (input)="timer.onShortBreakInput($event)"
       />
-    </label>
-    <label class="field">
-      <span class="field-label">Long break</span>
+    </mat-form-field>
+    <mat-form-field appearance="outline" subscriptSizing="dynamic">
+      <mat-label>Long break</mat-label>
       <input
+        matInput
         type="number"
         min="1"
         max="60"
+        inputmode="numeric"
         [value]="timer.longBreakMinutes()"
         [readOnly]="timer.isRunning()"
         (input)="timer.onLongBreakInput($event)"
       />
-    </label>
+    </mat-form-field>
   </div>
   @if (timer.isRunning()) {
     <p class="settings-hint">Pause the timer to change durations.</p>

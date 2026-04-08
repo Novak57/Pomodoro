@@ -4,13 +4,109 @@
   box-sizing: border-box;
 }
 
+:root {
+  --bg: #141019;
+  --surface: #1f1928;
+  --border: rgba(255, 255, 255, 0.08);
+  --text: #f4f0f8;
+  --muted: #9a8fb0;
+  --work: #e85d4c;
+  --work-glow: rgba(232, 93, 76, 0.35);
+  --short: #3db899;
+  --short-glow: rgba(61, 184, 153, 0.3);
+  --long: #6b8cff;
+  --long-glow: rgba(107, 140, 255, 0.3);
+  --radius: 20px;
+  --font: 'DM Sans', system-ui, sans-serif;
+
+  --mat-sys-primary: var(--work);
+  --mat-sys-on-primary: #120c14;
+
+  --mat-tooltip-container-color: rgba(28, 24, 36, 0.96);
+  --mat-tooltip-supporting-text-color: var(--text);
+  --mat-tooltip-supporting-text-font: var(--font);
+  --mat-tooltip-supporting-text-size: 12px;
+
+  --mat-button-filled-container-color: var(--work);
+  --mat-button-filled-label-text-color: #120c14;
+  --mat-button-filled-disabled-label-text-color: color-mix(in oklab, #120c14 42%, transparent);
+  --mat-button-filled-state-layer-color: #120c14;
+  --mat-button-filled-ripple-color: color-mix(in oklab, #120c14 14%, transparent);
+  --mat-button-filled-hover-state-layer-opacity: 0.1;
+  --mat-button-filled-focus-state-layer-opacity: 0.14;
+  --mat-button-filled-pressed-state-layer-opacity: 0.16;
+
+  --mat-button-outlined-label-text-color: var(--text);
+  --mat-button-outlined-outline-color: color-mix(in oklab, var(--work) 48%, var(--border));
+  --mat-button-outlined-disabled-outline-color: color-mix(in oklab, var(--border) 70%, transparent);
+  --mat-button-outlined-disabled-label-text-color: color-mix(in oklab, var(--text) 42%, transparent);
+  --mat-button-outlined-state-layer-color: #f4f0f8;
+  --mat-button-outlined-ripple-color: color-mix(in oklab, #f4f0f8 12%, transparent);
+  --mat-button-outlined-hover-state-layer-opacity: 0.06;
+  --mat-button-outlined-focus-state-layer-opacity: 0.08;
+  --mat-button-outlined-pressed-state-layer-opacity: 0.1;
+
+  --mat-icon-button-icon-color: var(--muted);
+  --mat-icon-button-state-layer-color: #f4f0f8;
+  --mat-icon-button-ripple-color: color-mix(in oklab, #f4f0f8 10%, transparent);
+  --mat-icon-button-hover-state-layer-opacity: 0.06;
+  --mat-icon-button-focus-state-layer-opacity: 0.08;
+  --mat-icon-button-pressed-state-layer-opacity: 0.1;
+  --mat-icon-button-disabled-icon-color: color-mix(in oklab, var(--muted) 45%, transparent);
+
+  --mat-checkbox-unselected-hover-state-layer-color: #f4f0f8;
+  --mat-checkbox-unselected-focus-state-layer-color: #f4f0f8;
+  --mat-checkbox-unselected-pressed-state-layer-color: #f4f0f8;
+  --mat-checkbox-unselected-hover-state-layer-opacity: 0;
+  --mat-checkbox-unselected-focus-state-layer-opacity: 0;
+  --mat-checkbox-unselected-pressed-state-layer-opacity: 0;
+  --mat-checkbox-selected-hover-state-layer-color: var(--work);
+  --mat-checkbox-selected-focus-state-layer-color: var(--work);
+  --mat-checkbox-selected-pressed-state-layer-color: var(--work);
+  --mat-checkbox-selected-hover-state-layer-opacity: 0;
+  --mat-checkbox-selected-focus-state-layer-opacity: 0;
+  --mat-checkbox-selected-pressed-state-layer-opacity: 0;
+
+  --mat-checkbox-touch-target-display: none;
+}
+
+.cdk-drag-preview {
+  overflow: hidden !important;
+  outline: none !important;
+  background-clip: padding-box;
+}
+
+.cdk-drag-preview * {
+  overflow: hidden !important;
+  pointer-events: none;
+}
+
+.cdk-drag-preview .mat-mdc-button-ripple,
+.cdk-drag-preview .mat-mdc-button-persistent-ripple,
+.cdk-drag-preview .mat-ripple-element {
+  display: none !important;
+}
+
+.mat-mdc-tooltip .mdc-tooltip__surface,
+.mat-mdc-tooltip {
+  background-color: var(--mat-tooltip-container-color, rgba(28, 24, 36, 0.96)) !important;
+  color: var(--mat-tooltip-supporting-text-color, var(--text)) !important;
+}
+
+html {
+  overflow-x: hidden;
+}
+
 html,
 body {
   margin: 0;
   min-height: 100%;
 }
 
-/* Material Symbols — used for UI icons (settings, close, …). */
+body {
+  font-family: var(--font);
+}
+
 .material-symbols-outlined.ms-icon {
   font-family: 'Material Symbols Outlined', sans-serif;
   font-size: 22px;
@@ -23,4 +119,98 @@ body {
     'opsz' 24;
   line-height: 1;
   user-select: none;
+}
+
+.cdk-overlay-backdrop.pomodoro-settings-backdrop {
+  background: rgba(8, 6, 12, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.pomodoro-settings-dialog .mat-mdc-dialog-container {
+  --mat-dialog-container-max-width: 100%;
+}
+
+.pomodoro-settings-dialog .mat-mdc-dialog-surface {
+  padding: 0;
+  overflow: hidden;
+  background: var(--surface) !important;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.05) inset,
+    0 32px 80px rgba(0, 0, 0, 0.55);
+  color: var(--text);
+}
+
+.pomodoro-settings-dialog {
+  --mat-sys-on-surface: var(--text);
+  --mat-sys-on-surface-variant: var(--muted);
+  --mat-sys-outline: rgba(255, 255, 255, 0.14);
+  --mat-sys-outline-variant: rgba(255, 255, 255, 0.1);
+
+  --mat-form-field-outlined-outline-color: rgba(255, 255, 255, 0.12);
+  --mat-form-field-outlined-hover-outline-color: color-mix(
+    in oklab,
+    var(--work) 42%,
+    var(--border)
+  );
+  --mat-form-field-outlined-focus-outline-color: color-mix(
+    in oklab,
+    var(--work) 58%,
+    var(--border)
+  );
+  --mat-form-field-outlined-input-text-color: var(--text);
+  --mat-form-field-outlined-disabled-input-text-color: color-mix(
+    in oklab,
+    var(--text) 42%,
+    transparent
+  );
+  --mat-form-field-outlined-label-text-color: var(--muted);
+  --mat-form-field-outlined-hover-label-text-color: var(--muted);
+  --mat-form-field-outlined-disabled-label-text-color: color-mix(
+    in oklab,
+    var(--muted) 55%,
+    transparent
+  );
+  --mat-form-field-outlined-focus-label-text-color: var(--muted);
+  --mat-form-field-outlined-caret-color: var(--work);
+  --mat-form-field-outlined-container-shape: 10px;
+  --mat-form-field-outlined-label-text-font: var(--font);
+  --mat-form-field-outlined-label-text-size: 0.8rem;
+
+  --mat-checkbox-label-text-color: var(--text);
+  --mat-checkbox-disabled-label-color: color-mix(in oklab, var(--text) 42%, transparent);
+  --mat-checkbox-selected-icon-color: var(--work);
+  --mat-checkbox-selected-hover-icon-color: var(--work);
+  --mat-checkbox-selected-focus-icon-color: var(--work);
+  --mat-checkbox-selected-pressed-icon-color: var(--work);
+  --mat-checkbox-unselected-icon-color: var(--muted);
+  --mat-checkbox-unselected-hover-icon-color: color-mix(in oklab, var(--text) 78%, var(--muted));
+  --mat-checkbox-unselected-focus-icon-color: var(--text);
+  --mat-checkbox-label-text-font: var(--font);
+  --mat-checkbox-label-text-size: 0.9rem;
+  --mat-checkbox-label-text-line-height: 1.35;
+}
+
+.pomodoro-settings-dialog .mat-mdc-form-field .mat-mdc-input-element {
+  font-family: var(--font);
+  font-size: 0.9rem;
+}
+
+.pomodoro-settings-dialog .mat-mdc-checkbox label,
+.pomodoro-settings-dialog .mat-mdc-checkbox .mdc-label {
+  color: var(--text) !important;
+}
+
+button.pomodoro-mat-pill.mat-mdc-button-base {
+  border-radius: 999px;
+}
+
+.timer-primary-mat {
+  min-width: 7.75rem;
+}
+
+.tasks-add-btn-mat {
+  flex-shrink: 0;
 }

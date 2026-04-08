@@ -1,17 +1,17 @@
 <section class="settings alerts" aria-label="Alerts">
   <h3 class="settings-title">Alerts</h3>
-  <label class="check">
-    <input
-      type="checkbox"
+  <div class="checkbox-block">
+    <mat-checkbox
       [checked]="notifications.notificationsWanted()"
-      (change)="notifications.onNotificationsCheckboxChange($event)"
       [disabled]="
         notifications.notificationPermission() === 'unsupported' ||
         notifications.notificationPermission() === 'denied'
       "
-    />
-    <span>Desktop notification when a phase ends</span>
-  </label>
+      (change)="notifications.onNotificationsCheckboxChange($event.checked)"
+    >
+      Desktop notification when a phase ends
+    </mat-checkbox>
+  </div>
   @if (notifications.notificationPermission() === 'unsupported') {
     <p class="settings-hint">Notifications are not available in this environment.</p>
   }
@@ -25,12 +25,12 @@
       You will be asked for permission the first time you turn this on.
     </p>
   }
-  <label class="check">
-    <input
-      type="checkbox"
+  <div class="checkbox-block">
+    <mat-checkbox
       [checked]="notifications.chimeOnPhaseEnd()"
-      (change)="notifications.onChimeCheckboxChange($event)"
-    />
-    <span>Soft chime when a phase ends (in-browser beep)</span>
-  </label>
+      (change)="notifications.onChimeCheckboxChange($event.checked)"
+    >
+      Soft chime when a phase ends (in-browser beep)
+    </mat-checkbox>
+  </div>
 </section>

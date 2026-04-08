@@ -42,28 +42,18 @@ export class NotificationsService {
     });
   }
 
-  /** Called when the user starts the timer so Web Audio can resume after a gesture. */
   resumeChimeContextIfPresent(): void {
     void this.chimeContext?.resume();
   }
 
-  onNotificationsCheckboxChange(event: Event): void {
-    const input = event.target;
-    if (!(input instanceof HTMLInputElement)) {
-      return;
-    }
-    void this.toggleNotificationsDesired(input.checked);
+  onNotificationsCheckboxChange(checked: boolean): void {
+    void this.toggleNotificationsDesired(checked);
   }
 
-  onChimeCheckboxChange(event: Event): void {
-    const input = event.target;
-    if (!(input instanceof HTMLInputElement)) {
-      return;
-    }
-    this.chimeOnPhaseEnd.set(input.checked);
+  onChimeCheckboxChange(checked: boolean): void {
+    this.chimeOnPhaseEnd.set(checked);
   }
 
-  /** Restore alert toggles from localStorage. */
   applyPersistedNotificationSlice(data: {
     notificationsWanted?: boolean;
     chimeOnPhaseEnd?: boolean;
@@ -97,7 +87,6 @@ export class NotificationsService {
     this.notificationsWanted.set(result === 'granted');
   }
 
-  /** Chime + desktop notification for a completed phase. */
   onPhaseCompleted(completed: PomodoroPhase): void {
     this.playChimeIfEnabled();
     this.showNotificationIfEnabled(completed);
@@ -119,7 +108,6 @@ export class NotificationsService {
         silent: this.chimeOnPhaseEnd(),
       });
     } catch {
-      /* Notification API may throw in restrictive contexts */
     }
   }
 
@@ -169,7 +157,6 @@ export class NotificationsService {
       osc.start(t0);
       osc.stop(t0 + 0.22);
     } catch {
-      /* Web Audio may be unavailable */
     }
   }
 }

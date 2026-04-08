@@ -1,18 +1,4 @@
 :host {
-  --bg: #141019;
-  --surface: #1f1928;
-  --border: rgba(255, 255, 255, 0.08);
-  --text: #f4f0f8;
-  --muted: #9a8fb0;
-  --work: #e85d4c;
-  --work-glow: rgba(232, 93, 76, 0.35);
-  --short: #3db899;
-  --short-glow: rgba(61, 184, 153, 0.3);
-  --long: #6b8cff;
-  --long-glow: rgba(107, 140, 255, 0.3);
-  --radius: 20px;
-  --font: 'DM Sans', system-ui, sans-serif;
-
   display: block;
   min-height: 100dvh;
   font-family: var(--font);

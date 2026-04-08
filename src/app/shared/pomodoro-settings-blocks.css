@@ -1,4 +1,3 @@
-/* Shared form blocks used inside the settings drawer sections. */
 .settings {
   background: rgba(31, 25, 40, 0.6);
   border: 1px solid var(--border);
@@ -19,39 +18,37 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.75rem;
+  align-items: start;
 }
 
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.field-label {
-  font-size: 0.75rem;
-  color: var(--muted);
-}
-
-.field input {
-  font: inherit;
-  font-variant-numeric: tabular-nums;
+.settings-grid mat-form-field {
   width: 100%;
-  box-sizing: border-box;
-  padding: 0.5rem 0.55rem;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: rgba(0, 0, 0, 0.25);
-  color: var(--text);
 }
 
-.field input:focus {
-  outline: none;
-  border-color: color-mix(in oklab, var(--work) 50%, var(--border));
+.settings-grid .mat-mdc-form-field {
+  --mat-form-field-container-vertical-padding: 8px;
 }
 
-.field input:read-only {
-  opacity: 0.55;
-  cursor: not-allowed;
+.settings-grid .mat-mdc-text-field-wrapper {
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.settings-grid .mat-mdc-form-field.mat-form-field-appearance-outline .mdc-notched-outline__leading,
+.settings-grid .mat-mdc-form-field.mat-form-field-appearance-outline .mdc-notched-outline__notch,
+.settings-grid .mat-mdc-form-field.mat-form-field-appearance-outline .mdc-notched-outline__trailing {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.settings-grid
+  .mat-mdc-form-field.mat-focused.mat-form-field-appearance-outline
+  .mdc-notched-outline__leading,
+.settings-grid
+  .mat-mdc-form-field.mat-focused.mat-form-field-appearance-outline
+  .mdc-notched-outline__notch,
+.settings-grid
+  .mat-mdc-form-field.mat-focused.mat-form-field-appearance-outline
+  .mdc-notched-outline__trailing {
+  border-color: color-mix(in oklab, var(--work) 55%, var(--border));
 }
 
 .settings-hint {
@@ -60,29 +57,25 @@
   color: var(--muted);
 }
 
-.alerts .check + .settings-hint,
-.alerts .check + p {
+.alerts .checkbox-block + .settings-hint,
+.alerts .checkbox-block + p {
   margin-top: 0.35rem;
 }
 
-.check {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.55rem;
+.checkbox-block {
+  display: block;
   margin: 0 0 0.75rem;
-  font-size: 0.9rem;
-  line-height: 1.35;
-  cursor: pointer;
 }
 
-.check input {
-  margin: 0.2rem 0 0;
-  accent-color: var(--work);
-  flex-shrink: 0;
-}
-
-.check:last-of-type {
+.checkbox-block:last-of-type {
   margin-bottom: 0;
+}
+
+.checkbox-block .mat-mdc-checkbox {
+  --mdc-checkbox-selected-icon-color: var(--work);
+  --mdc-checkbox-selected-hover-icon-color: var(--work);
+  --mdc-checkbox-selected-focus-icon-color: var(--work);
+  --mdc-checkbox-selected-pressed-icon-color: var(--work);
 }
 
 @media (max-width: 360px) {

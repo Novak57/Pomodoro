@@ -1,4 +1,3 @@
-import { DOCUMENT } from '@angular/common';
 import {
   DestroyRef,
   Injectable,
@@ -8,18 +7,23 @@ import {
   signal,
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import { type PomodoroPhase } from '../models/pomodoro.types';
+import { SettingsDialogComponent } from '../settings/settings-dialog/settings-dialog.component';
 import { NotificationsService } from './notifications.service';
+import { TasksService } from './tasks.service';
 
 const DEFAULT_TITLE = 'Pomodoro';
 
 @Injectable()
 export class TimerService {
   private readonly destroyRef = inject(DestroyRef);
-  private readonly document = inject(DOCUMENT);
   private readonly title = inject(Title);
   private readonly notifications = inject(NotificationsService);
+  private readonly tasks = inject(TasksService);
+  private readonly dialog = inject(MatDialog);
+  private settingsDialogRef: MatDialogRef<SettingsDialogComponent> | null = null;
   private intervalId: ReturnType<typeof setInterval> | null = null;
 
   readonly phase = signal<PomodoroPhase>('work');
@@ -60,34 +64,45 @@ export class TimerService {
     return 1 - this.remainingSeconds() / total;
   });
 
-  readonly settingsOpen = signal(false);
-
   constructor() {
-    const onEscape = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape' || !this.settingsOpen()) {
-        return;
-      }
-      e.preventDefault();
-      this.closeSettings();
-    };
-    this.document.defaultView?.addEventListener('keydown', onEscape);
     this.destroyRef.onDestroy(() => {
-      this.document.defaultView?.removeEventListener('keydown', onEscape);
-      this.document.body.style.overflow = '';
+      this.settingsDialogRef?.close();
       this.clearTimer();
     });
 
     effect(() => {
-      this.document.body.style.overflow = this.settingsOpen() ? 'hidden' : '';
+      if (!this.isRunning()) {
+        return;
+      }
+      void this.formattedTime();
+      void this.phase();
+      void this.tasks.currentTask()?.id;
+      void this.tasks.currentTask()?.title;
+      this.updateDocumentTitle();
     });
   }
 
   openSettings(): void {
-    this.settingsOpen.set(true);
+    if (this.settingsDialogRef) {
+      return;
+    }
+    this.settingsDialogRef = this.dialog.open(SettingsDialogComponent, {
+      panelClass: 'pomodoro-settings-dialog',
+      backdropClass: 'pomodoro-settings-backdrop',
+      width: '440px',
+      maxWidth: 'calc(100vw - 1.5rem)',
+      maxHeight: 'min(90dvh, 720px)',
+      autoFocus: 'first-tabbable',
+      restoreFocus: true,
+    });
+    this.settingsDialogRef.afterClosed().subscribe(() => {
+      this.settingsDialogRef = null;
+    });
   }
 
   closeSettings(): void {
-    this.settingsOpen.set(false);
+    this.settingsDialogRef?.close();
+    this.settingsDialogRef = null;
   }
 
   start(): void {
@@ -151,23 +166,14 @@ export class TimerService {
     this.applyDurations();
   }
 
-  onAutoStartBreaksChange(event: Event): void {
-    const input = event.target;
-    if (!(input instanceof HTMLInputElement)) {
-      return;
-    }
-    this.autoStartBreaks.set(input.checked);
+  onAutoStartBreaksChange(checked: boolean): void {
+    this.autoStartBreaks.set(checked);
   }
 
-  onAutoStartFocusChange(event: Event): void {
-    const input = event.target;
-    if (!(input instanceof HTMLInputElement)) {
-      return;
-    }
-    this.autoStartFocus.set(input.checked);
+  onAutoStartFocusChange(checked: boolean): void {
+    this.autoStartFocus.set(checked);
   }
 
-  /** Restore durations and behavior toggles from localStorage (idle timer only). */
   applyPersistedTimerSlice(data: {
     workMinutes?: number;
     shortBreakMinutes?: number;
@@ -272,7 +278,10 @@ export class TimerService {
       return;
     }
     if (this.isRunning()) {
-      this.title.setTitle(`${this.formattedTime()} · ${this.phaseLabel()}`);
+      const ct = this.tasks.currentTask();
+      const taskPrefix =
+        this.phase() === 'work' && ct ? `${ct.title} · ` : '';
+      this.title.setTitle(`${this.formattedTime()} · ${taskPrefix}${this.phaseLabel()}`);
     }
   }
 }
